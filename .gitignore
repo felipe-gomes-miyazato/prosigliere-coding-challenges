@@ -1,6 +1,7 @@
 # Root gitignore
 drafts/
 solution/solution_demo.db
+data-engineer-challenge/
 __pycache__/
 .env
 .venv/
