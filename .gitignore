@@ -1,7 +1,47 @@
-# Root gitignore
-drafts/
-solution/solution_demo.db
-data-engineer-challenge/
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
 .env
 .venv/
+venv/
+ENV/
+.pytest_cache/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+postgres-data/
+*/pgdata/
+**/postgres_*_data/
+
+# Airflow
+airflow.cfg
+airflow.db
+airflow-webserver.pid
+webserver_config.py
+**/airflow/logs/
+**/airflow/plugins/
+unittests.cfg
+logs/
+
+# Project specific
+drafts/
+solution/solution_demo.db
+
+# Data files
+*.csv
+*.json
+*.parquet
+*.xlsx
+ecommerce-etl-pipeline/airflow/dags/data/
+ecommerce-etl-pipeline/database/data/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
