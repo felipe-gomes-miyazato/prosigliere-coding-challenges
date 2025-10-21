@@ -1,0 +1,6 @@
+# Root gitignore
+drafts/
+solution/solution_demo.db
+__pycache__/
+.env
+.venv/
