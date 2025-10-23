@@ -32,32 +32,9 @@ This mockup outlines an analytics dashboard to answer the business questions abo
   - Hover tooltips with exact values
   - Clear hour labels and currency formatting
 
-### 3. Revenue Heatmap (Day vs Hour)
+### (COMING SOON) Revenue Heatmap (Day vs Hour)
 - **Purpose**: Identify optimal promotion times across week
-- **Structure**:
-  - Rows: Days of week (Mon-Sun)
-  - Columns: Hours (00-23)
-  - Cell color: Revenue intensity
-- **Usage**: Dark cells indicate prime promotion windows
 
-## Mockup (ASCII/Markdown layout)
-
-----------------------------+------------------------------
-| KPIs: Revenue | Orders | AOV | Top Product              |
-|  $12,345      |  1,234 | $10 | SuperWidget (30% rev)   |
-----------------------------+------------------------------
-
-Top Products                | Revenue by Hour
---------------------------- | ---------------------------
-# | Product     | Qty | Rev | Hour | Revenue (USD)
-1 | SuperWidget | 120 | 5,000| 0    | 200
-2 | MegaPack    | 100 | 4,000| 1    | 180
-3 | BasicThing  | 80  | 3,345| ...  | ...
-
-Heatmap (Day vs Hour)
-Mon | [ ., ., .,  12, 45, 90, ... ]
-Tue | [ ..., ... ]
-...
 
 ## Implementation Notes
 
