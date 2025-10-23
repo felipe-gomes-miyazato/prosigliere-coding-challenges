@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS dim_time (
     day_of_week INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-CREATE INDEX IF NOT EXISTS idx_dim_time_datetime ON dim_time(order_datetime);
+-- Add a unique index to allow ON CONFLICT(upsert) on order_datetime
+CREATE UNIQUE INDEX IF NOT EXISTS ux_dim_time_order_datetime ON dim_time(order_datetime);
 CREATE INDEX IF NOT EXISTS idx_dim_time_date ON dim_time(order_date);
 CREATE INDEX IF NOT EXISTS idx_dim_time_components ON dim_time(year, month, day);
 

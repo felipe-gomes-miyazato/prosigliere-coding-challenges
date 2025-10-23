@@ -27,7 +27,31 @@ def upsert_dim_customers(conn, rows):
 
 def insert_fact_order_items(conn, rows):
     cur = conn.cursor()
-    values = [(r['order_id'], r['product_id'], r['customer_id'], r['quantity'], r['price'], r['currency'], r['price_usd'], r['revenue_usd'], r['order_datetime'].isoformat()) for r in rows]
+    # Ensure order_datetime is a Python datetime for psycopg2 to handle TIMESTAMP correctly.
+    # Accept datetimes or ISO strings (defensive), convert strings to Python datetime.
+    from datetime import datetime
+    def ensure_dt(v):
+        if v is None:
+            return None
+        if isinstance(v, str):
+            # try isoformat parse
+            try:
+                return datetime.fromisoformat(v)
+            except Exception:
+                return datetime.strptime(v, "%Y-%m-%d %H:%M:%S")
+        return v
+
+    values = [(
+        r['order_id'],
+        r['product_id'],
+        r['customer_id'],
+        r['quantity'],
+        r['price'],
+        r['currency'],
+        r['price_usd'],
+        r['revenue_usd'],
+        ensure_dt(r['order_datetime'])
+    ) for r in rows]
     execute_values(cur, "INSERT INTO fact_order_item(order_id,product_id,customer_id,quantity,price,currency,price_usd,revenue_usd,order_datetime) VALUES %s", values)
     conn.commit()
 
