@@ -19,7 +19,7 @@ The setup includes:
 
 2. **Start the environment**
    ```bash
-   cd data_engineer_setup
+   cd ecommerce-etl-pipeline
    docker-compose up -d
    ```
 
@@ -29,7 +29,7 @@ The setup includes:
    ```
 
 4. **Access Airflow Web UI**
-   - URL: http://localhost:8080
+   - URL: http://localhost:8080/login/
    - Username: `admin`
    - Password: `admin`
 

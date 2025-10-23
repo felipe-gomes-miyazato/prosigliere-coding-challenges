@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 
 def run_etl_to_postgres(**kwargs):
     # This function will run inside the Airflow container and can reach the Postgres containers
-    from solution.etl.transform import load_csv, transform_and_normalize, aggregate_performance
-    from solution.etl.currency_api import CurrencyClient
-    from solution.etl.load_postgres import get_conn, init_dw, upsert_dim_products, upsert_dim_customers, insert_fact_order_items, upsert_agg_products, upsert_agg_hourly
+    from etl.transform import load_csv, transform_and_normalize, aggregate_performance
+    from etl.currency_api import CurrencyClient
+    from etl.load_postgres import get_conn, init_dw, upsert_dim_products, upsert_dim_customers, insert_fact_order_items, upsert_agg_products, upsert_agg_hourly, upsert_dim_time
     from pathlib import Path
 
     # In container network, hostnames are the service names from docker-compose
@@ -23,6 +23,8 @@ def run_etl_to_postgres(**kwargs):
         orders = cur.fetchall()
         cur.execute("SELECT * FROM customers")
         customers = cur.fetchall()
+        cur.execute("SELECT * FROM order_items")
+        order_items = cur.fetchall()
         
     with conn_db2.cursor() as cur:
         cur.execute("SELECT * FROM products")
@@ -32,7 +34,7 @@ def run_etl_to_postgres(**kwargs):
     conn_db2.close()
 
     cc = CurrencyClient()
-    dim_p, dim_c, facts = transform_and_normalize(orders, products, customers, cc)
+    dim_p, dim_c, facts = transform_and_normalize(orders, order_items, products, customers, cc)
     prod_rows, hour_rows = aggregate_performance(facts)
 
     # Load into DW
